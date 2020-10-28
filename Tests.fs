@@ -8,11 +8,11 @@ let tests =
   testList "wordWrap" [
     testCase "should not wrap empty text" <| fun _ ->
       let result = wordWrap "" 1
-      Expect.equal result "" "Failed";
+      Expect.equal result "" "Failed"
     
     testCase "should not wrap text shorter than width" <| fun _ ->
       let result = wordWrap "word word" 10
-      Expect.equal result "word word" "Failed";
+      Expect.equal result "word word" "Failed"
 
     testCase "should wrap text longer than width" <| fun _ ->
       let result = wordWrap "word word" 6
@@ -22,7 +22,15 @@ let tests =
       let result = wordWrap "word word word" 10
       Expect.equal result "word word\nword" "Failed"
       
-    testCase "should deal with white spaces" <| fun _ ->
+    testCase "should deal with white spaces at end" <| fun _ ->
       let result = wordWrap "word word word         " 10
       Expect.equal result "word word\nword" "Failed"
+
+    testCase "should deal with white spaces at begining" <| fun _ ->
+      let result = wordWrap "        word word word" 10
+      Expect.equal result "word word\nword" "Failed"
+
+    testCase "should deal with white spaces in the middle" <| fun _ ->
+      let result = wordWrap "word         word word          word" 10
+      Expect.equal result "word word\nword word" "Failed"
   ]

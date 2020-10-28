@@ -2,6 +2,7 @@ module Lib
 
 open System
 
+
 let concat (width: int) (acc: string) (value: string) =
     match acc with
     | "" -> value
@@ -14,4 +15,5 @@ let wordWrap (text: string) (width: int) =
     | _ ->
         text.Split " "
         |> Seq.toList
-        |> Seq.fold (concat width) ""
+        |> (Seq.fold (concat width) "")
+        |> fun x -> x.Trim()
