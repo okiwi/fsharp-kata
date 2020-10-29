@@ -6,7 +6,9 @@ open System
 let concat (width: int) (acc: string) (value: string) =
     match acc with
     | "" -> value
-    | _ -> if acc.Length + value.Length >= width then acc + "\n" + value else acc + " " + value
+    | _ when value = "" -> acc
+    | _ when acc.Length - (acc.LastIndexOf("\n") + 1) + value.Length >= width -> acc + "\n" + value
+    | _ -> acc + " " + value
 
 
 let wordWrap (text: string) (width: int) =
@@ -14,6 +16,4 @@ let wordWrap (text: string) (width: int) =
     | "" -> ""
     | _ ->
         text.Split " "
-        |> Seq.toList
         |> (Seq.fold (concat width) "")
-        |> fun x -> x.Trim()
