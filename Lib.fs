@@ -17,3 +17,5 @@ let wordWrap (text: string) (width: int) =
     | _ ->
         text.Split " "
         |> (Seq.fold (concat width) "")
+
+let justify = wordWrap
